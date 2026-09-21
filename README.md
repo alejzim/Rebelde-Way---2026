@@ -160,7 +160,7 @@ Para comprobar la integración después de configurar Supabase: completá cinco 
 ## Archivos principales
 
 ```text
-api/[...route].js                          Entrada de la función serverless
+api/quiz.js y api/admin/                   Entradas de las funciones serverless
 server/                                   API, acceso a Supabase y seguridad
 shared/quiz.js                            Preguntas, opciones y personajes
 src/                                      Componentes, páginas y estilos de React
