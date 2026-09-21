@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-labelledby="title desc">
+  <title id="title">Pablo: ilustración original de un joven de pelo rubio</title>
+  <desc id="desc">Retrato editorial ficticio con saco colegial y fondo verde salvia con gráficos musicales. Imagen de reemplazo; no es una fotografía del elenco.</desc>
+  <defs>
+    <linearGradient id="paper" x2="1" y2="1"><stop stop-color="#bfc5a9"/><stop offset="1" stop-color="#899b85"/></linearGradient>
+    <linearGradient id="hair" x2=".7" y2="1"><stop stop-color="#d4b283"/><stop offset=".5" stop-color="#aa805b"/><stop offset="1" stop-color="#735b46"/></linearGradient>
+    <linearGradient id="jacket" x2="1" y2="1"><stop stop-color="#405057"/><stop offset="1" stop-color="#252f38"/></linearGradient>
+    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#47665b" opacity=".21"/></pattern>
+    <pattern id="grain" width="65" height="53" patternUnits="userSpaceOnUse"><path d="m8 9 3-1m25 26 2 1m20-25 2 2M6 46l2-1" stroke="#fff7e9" stroke-width="1" opacity=".23"/></pattern>
+  </defs>
+  <path fill="url(#paper)" d="M0 0h480v600H0z"/><path fill="url(#dots)" d="M0 0h480v600H0z"/>
+  <path d="m-23 164 510-66 3 63L-7 224z" fill="#e0d9b4" opacity=".83"/>
+  <circle cx="240" cy="267" r="168" fill="#d8d6b5" opacity=".8"/>
+  <path d="m61 113 8 17 19 1-15 12 5 19-16-10-16 10 4-19-14-13 19-1z" fill="#f4e4bd"/>
+  <path d="M386 241v52m0-42 23-6v45" fill="none" stroke="#526b5b" stroke-width="3"/><ellipse cx="379" cy="294" rx="8" ry="6" fill="#526b5b"/><ellipse cx="402" cy="291" rx="8" ry="6" fill="#526b5b"/>
+  <path d="M43 361q29-30 44 3m-50 9q29-30 44 3" fill="none" stroke="#5d705e" stroke-width="2.5" opacity=".8"/>
+  <text x="30" y="42" fill="#40594e" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="3">A TU MANERA</text>
+  <text x="430" y="43" fill="#40594e" font-family="Arial, sans-serif" font-size="15" font-weight="700">03</text>
+  <text x="312" y="548" fill="#e0ddbd" font-family="Arial, sans-serif" font-size="184" font-weight="900" opacity=".6">P</text>
+  <path d="m196 327-6 72-58 32 106 78 110-86-61-29-11-63z" fill="#cea080"/>
+  <path d="m198 338 1 21c16 20 47 30 82-1l-5-26z" fill="#a7765d" opacity=".48"/>
+  <path d="m190 392-61 23-70 36C30 468 8 530 0 600h480c-5-79-26-136-61-153l-71-34-62-21-48 42z" fill="url(#jacket)"/>
+  <path d="m191 391 47 40 48-39 28 40-31 168h-91l-33-168z" fill="#e8dec4"/>
+  <path d="M200 449v151m76-147v147m-59-153v153m42-152v152" stroke="#b9bfae" stroke-width="2" opacity=".7"/>
+  <path d="m191 391-34 42 33 40 47-39zm95 1 32 44-35 36-43-39z" fill="#f5ecd7"/>
+  <path d="m228 437-13 23 15 18-13 102 24 20 22-25-17-97 17-18-15-23z" fill="#6f4545"/>
+  <path d="m228 515 23-10m-25 37 28-12m-31 41 34-16" stroke="#ad8570" stroke-width="5"/>
+  <path d="m151 408-30 67 43 5-29 35 40 85m151-192 31 67-41 8 29 31-39 86" stroke="#6b7b7a" stroke-width="3" fill="none"/>
+  <path d="m63 486 22 114m330-114-21 114" stroke="#1e2b32" stroke-width="5" opacity=".6"/>
+  <path d="M162 217c-15-6-21 8-18 27 3 20 13 29 28 24m140-48c14-7 22 4 19 24-2 20-12 32-24 26" fill="#d7a887"/>
+  <path d="M166 187c-7 37-6 90 7 120 9 21 40 57 64 57 28 0 56-32 68-58 13-30 17-85 8-117-45-24-110-18-147-2z" fill="#e8bb94"/>
+  <path d="M292 225c7 47 2 87-19 119 26-19 41-45 39-91z" fill="#ca9778" opacity=".65"/>
+  <path d="M160 244c-21-20-24-55-19-73-12-18-2-35 15-38-4-21 17-34 36-24 8-24 34-27 51-10 20-17 45-8 50 12 20-8 42 7 37 27 23 11 24 33 10 50 6 21-2 39-25 60l-5-56c-19-2-34-10-45-23-26 19-63 27-96 24z" fill="url(#hair)"/>
+  <path d="M162 166c16-5 28-15 36-27m-17 49c30-5 44-23 52-48m-4 50c23-7 35-19 41-39m10-7c9 14 19 24 34 27" stroke="#e1c392" stroke-width="6" fill="none" stroke-linecap="round" opacity=".75"/>
+  <path d="m181 240 33-4m51 0 31 6" stroke="#8b674b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M183 254q15-9 30 0m53 0q14-9 29 1" stroke="#52443b" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <ellipse cx="199" cy="254" rx="3.5" ry="4.5" fill="#697369"/><ellipse cx="280" cy="255" rx="3.5" ry="4.5" fill="#697369"/>
+  <path d="m238 261-5 26 11 3" fill="none" stroke="#b38367" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M217 315q20 11 43-3" fill="none" stroke="#9c635b" stroke-width="3" stroke-linecap="round"/>
+  <path d="M228 329q12 5 23-2" fill="none" stroke="#c38d71" stroke-width="2" stroke-linecap="round"/>
+  <path d="m108 503 13-8 16 8-2 22-14 9-12-10z" fill="#a4ae97"/><path d="m115 511 6 9 7-10" stroke="#495b52" stroke-width="2" fill="none"/>
+  <path d="M343 507h51m-47 6h42" stroke="#89978e" stroke-width="2"/>
+  <path fill="url(#grain)" d="M0 0h480v600H0z"/>
+  <text x="30" y="574" fill="#d5d7c5" font-family="Arial, sans-serif" font-size="8" letter-spacing="2">RETRATO ILUSTRADO · PABLO</text>
+</svg>
