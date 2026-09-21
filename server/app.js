@@ -1,6 +1,6 @@
 import { QUESTIONS, CHARACTER_IDS } from '../shared/quiz.js';
 import { createRepository } from './repository.js';
-import { HttpError, assertSameOrigin, clientRateKey, constantTimeEqual, createSession, isUuid,
+import { COOKIE_NAME, HttpError, assertSameOrigin, clientRateKey, constantTimeEqual, createSession, isUuid,
   readJsonBody, readSession, scoreAnswers, serverSecret, sessionCookie, validateSubmission } from './security.js';
 
 const PAGE_SIZE = 20;
@@ -20,6 +20,11 @@ export function createApiHandler({ env = process.env, repository, now = Date.now
     return database;
   }
   function requireAuth(req) {
+    const hasSessionCookie = String(req.headers.cookie || '').split(';').some((part) => {
+      const cookie = part.trim();
+      return cookie.startsWith(`${COOKIE_NAME}=`) && cookie.length > COOKIE_NAME.length + 1;
+    });
+    if (!hasSessionCookie) throw new HttpError(401, 'Iniciá sesión para acceder al panel.');
     const session = readSession(req.headers.cookie, serverSecret(env), now());
     if (!session) throw new HttpError(401, 'Iniciá sesión para acceder al panel.');
     return session;

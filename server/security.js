@@ -15,12 +15,15 @@ export function constantTimeEqual(left, right) {
 }
 
 export function serverSecret(env, purpose = 'admin-session') {
-  if (typeof env.ADMIN_PASSWORD !== 'string' || env.ADMIN_PASSWORD.length < 12) {
+  if (typeof env.ADMIN_PASSWORD !== 'string' || !env.ADMIN_PASSWORD ||
+      typeof env.SUPABASE_SECRET_KEY !== 'string' || !env.SUPABASE_SECRET_KEY) {
     throw new HttpError(503, 'El servicio todavía no está configurado. Intentá más tarde.');
   }
   // Purpose separation keeps session signing and anonymous rate-limit keys independent.
-  // Changing ADMIN_PASSWORD immediately invalidates all existing sessions.
-  return createHash('sha256').update(`erreway/${purpose}/v1\0${env.ADMIN_PASSWORD}`).digest('hex');
+  // The server-only Supabase key provides signing entropy even for a short admin password.
+  // Rotating either secret immediately invalidates existing sessions.
+  return createHmac('sha256', env.SUPABASE_SECRET_KEY)
+    .update('erreway/signing/v2\0').update(JSON.stringify([purpose, env.ADMIN_PASSWORD])).digest('hex');
 }
 
 export function normalizeName(value) {

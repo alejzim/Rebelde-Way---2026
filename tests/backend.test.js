@@ -9,7 +9,7 @@ import { COOKIE_NAME, SESSION_SECONDS, assertSameOrigin, clientRateKey, createSe
   readJsonBody, readSession, scoreAnswers, serverSecret, validateSubmission } from '../server/security.js';
 import { QUESTIONS, CHARACTER_IDS } from '../shared/quiz.js';
 
-const env = { ADMIN_PASSWORD: 'test-password-123' };
+const env = { ADMIN_PASSWORD: 'test-password-123', SUPABASE_SECRET_KEY: 'test-only-supabase-secret-never-used-for-network' };
 const submission = (changes = {}) => ({ nombre: '  María   Sol ', answers: [1, 1, 2, 5, 1], submissionId: randomUUID(), ...changes });
 function fakeRepository() {
   const rows = new Map();
@@ -78,7 +78,7 @@ test('names normalize and malformed/forged submissions fail', () => {
   }
 });
 
-test('signed sessions expire, reject tampering and invalidate on admin password rotation', () => {
+test('signed sessions expire, reject tampering and invalidate on either secret rotation', () => {
   const now = Date.UTC(2026, 8, 20);
   const secret = serverSecret(env);
   const session = createSession(secret, now);
@@ -87,9 +87,30 @@ test('signed sessions expire, reject tampering and invalidate on admin password 
   assert.equal(readSession(cookie, secret, now + SESSION_SECONDS * 1000), null);
   assert.equal(readSession(`${cookie}tampered`, secret, now), null);
   assert.equal(readSession(`${cookie}.extra`, secret, now), null);
-  assert.equal(readSession(cookie, serverSecret({ ADMIN_PASSWORD: 'different-password' }), now), null);
+  assert.equal(readSession(cookie, serverSecret({ ...env, ADMIN_PASSWORD: 'different-password' }), now), null);
+  assert.equal(readSession(cookie, serverSecret({ ...env, SUPABASE_SECRET_KEY: 'rotated-test-only-secret' }), now), null);
   assert.notEqual(secret, serverSecret(env, 'rate-limit'));
-  assert.throws(() => serverSecret({ ADMIN_PASSWORD: 'short' }), { status: 503 });
+  for (const settings of [{}, { ...env, ADMIN_PASSWORD: '' }, { ...env, SUPABASE_SECRET_KEY: '' }]) {
+    assert.throws(() => serverSecret(settings), { status: 503 });
+  }
+});
+
+test('a configured short password works while missing configuration keeps login unavailable', async () => {
+  const shortEnv = { ...env, ADMIN_PASSWORD: 'short' };
+  assert.doesNotThrow(() => serverSecret(shortEnv));
+  const { handler } = setup({ env: shortEnv });
+  const result = await request(handler, 'POST', '/api/admin/login', { body: { password: shortEnv.ADMIN_PASSWORD } });
+  assert.equal(result.status, 200);
+  const cookie = result.headers['set-cookie'].split(';')[0];
+  assert.equal((await request(handler, 'GET', '/api/admin/session', { cookie })).status, 200);
+
+  const unconfigured = createApiHandler({ env: {}, logger: { error() {} } });
+  for (const cookie of [undefined, 'unrelated=anything', `${COOKIE_NAME}=`]) {
+    assert.equal((await request(unconfigured, 'GET', '/api/admin/session', { cookie })).status, 401);
+  }
+  const rejected = await request(unconfigured, 'POST', '/api/admin/login', { body: { password: 'anything' } });
+  assert.equal(rejected.status, 503);
+  assert.match(rejected.body.error, /no está configurado/);
 });
 
 test('JSON parsing enforces content type, syntax and size for both request formats', async () => {

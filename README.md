@@ -53,9 +53,9 @@ Los valores quedan vacíos a propósito. Completalos localmente con los valores 
 | `VITE_SUPABASE_URL` | URL pública del proyecto; también identifica la instancia utilizada por la API |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | Clave pública de Supabase, preparada para el frontend; no permite administrar respuestas |
 | `SUPABASE_SECRET_KEY` | Clave secreta utilizada exclusivamente por la API del servidor |
-| `ADMIN_PASSWORD` | Contraseña administrativa; el servidor también deriva de ella la clave para firmar las sesiones |
+| `ADMIN_PASSWORD` | Contraseña administrativa; el servidor la combina con la clave secreta de Supabase para firmar las sesiones |
 
-Usá una contraseña larga, única y de **al menos 12 caracteres**. Cambiar `ADMIN_PASSWORD` invalida las sesiones anteriores una vez reiniciado el servidor o aplicado el nuevo despliegue. No hacen falta `SESSION_SECRET`, `APP_ORIGIN` ni variables adicionales de autenticación.
+Usá una contraseña larga y única; recomendamos **al menos 12 caracteres**. La aplicación respeta la contraseña no vacía que ya tengas configurada. Cambiar `ADMIN_PASSWORD` o `SUPABASE_SECRET_KEY` invalida las sesiones anteriores una vez reiniciado el servidor o aplicado el nuevo despliegue. No hacen falta `SESSION_SECRET`, `APP_ORIGIN` ni variables adicionales de autenticación.
 
 Las variables que empiezan con `VITE_` son públicas y pueden quedar incluidas en los archivos descargados por el navegador. **Nunca agregues ese prefijo a `SUPABASE_SECRET_KEY` ni a `ADMIN_PASSWORD`.** Las operaciones de guardado, consulta y eliminación pasan por `/api/...`; la clave secreta y la contraseña nunca se incorporan al frontend.
 
@@ -179,7 +179,7 @@ pnpm-lock.yaml                            Dependencias resueltas
 | --- | --- |
 | El test informa que el servicio no está configurado | Las cuatro variables y el reinicio local o nuevo despliegue |
 | El guardado falla con las variables completas | Que URL y claves pertenezcan al mismo proyecto y se haya ejecutado toda la migración |
-| `/admin` no permite iniciar sesión | Contraseña de al menos 12 caracteres y conectividad con Supabase |
+| `/admin` no permite iniciar sesión | `ADMIN_PASSWORD` y `SUPABASE_SECRET_KEY` no vacías, contraseña correcta y conectividad con Supabase |
 | La API devuelve un error de origen | Que frontend y API estén bajo el mismo dominio y protocolo; usá la URL que muestra `pnpm dev` en local |
 | La API informa demasiados intentos | Esperá antes de reintentar: se alcanzó un límite temporal |
 | Funciona localmente pero falla en Vercel | Variables en el entorno correcto y un despliegue nuevo después de configurarlas |
